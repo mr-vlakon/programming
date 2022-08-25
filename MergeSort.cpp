@@ -3,7 +3,7 @@
 using namespace std;
 
 template<class T>
-void PrintVector(vector<T> vec) {
+void PrintVector(const vector<T> &vec) {
         cout << "{";
         auto sizeOfVector = vec.size();
         decltype(vec.size()) i = 1;
