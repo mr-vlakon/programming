@@ -3,8 +3,13 @@ public:
     bool isPalindrome(int x) {
         int tmp = 0;
         int t = x;
+        /*
         string s = to_string(x);
         if (s[0] == '-') {
+            return false;
+        }
+        */
+        if (t & (1 << 31)) {
             return false;
         }
         vector<unsigned> v;
