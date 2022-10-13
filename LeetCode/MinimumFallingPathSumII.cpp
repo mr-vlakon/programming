@@ -19,7 +19,7 @@ public:
                 dp[j][i] = q;
             }
         }
-        return *min_element(dp[n - 1].cbegin(), dp[n - 1].cend());;
+        return *min_element(dp[n - 1].cbegin(), dp[n - 1].cend());
         
         
     }
