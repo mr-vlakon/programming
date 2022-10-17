@@ -1,10 +1,10 @@
 class Solution {
 public:
     string countAndSay(int n) {
-        vector<string> cntNSay(n + 1);
-        if (n + 1 == 1) return "0";
+        vector<string> cntNSay(n);
+        if (n == 0) return "0";
         cntNSay[0] = "1";
-        if (n + 1 == 1) return "1";
+        if (n == 1) return "1";
         cntNSay[1] = "11";
         int i = 2;
         while (i < n) {
