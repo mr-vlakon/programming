@@ -12,11 +12,9 @@ public:
                 digits_logs.push_back(e);
             } else {
                 letter_logs.push_back(e);
-            }
-            
+            }            
         }
-        
-        unordered_map<string, vector<string>> um;
+        vector<pair<string, string> > v;
         for (const auto &e: letter_logs) {
             istringstream is(e);
             string id;
@@ -27,38 +25,23 @@ public:
                 result += s + " ";
             }
             result.erase(--result.cend());
-            um[id].push_back(result);
+            v.push_back({id, result});
         }
-        
-        vector<pair<string, string> > v;
-        
-        for (const auto &e: um) {
-            for (const auto &p: e.second)
-                v.push_back({e.first, p});
-        }
-    
-
         sort(v.begin(), v.end(), [=](const pair<string, string> &lhs, 
                                      const pair<string, string> &rhs) {
             return lhs.first < rhs.first; 
         });
-        
         stable_sort(v.begin(), v.end(), [=](const pair<string, string> &lhs, 
                                      const pair<string, string> &rhs) {
             return lhs.second < rhs.second; 
         });
-
-        
         vector<string> answer;
         for (const auto &e: v) {
             string tmp = e.first + " " + e.second;
             answer.push_back(tmp);
         }
-        
         copy(digits_logs.cbegin(), digits_logs.cend(), back_inserter(answer));
-        
         return answer;
-        
     }
 };
 
