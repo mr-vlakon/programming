@@ -2,15 +2,11 @@ class Solution {
 public:
     int distinctAverages(vector<int>& nums) {
         unordered_set<double> us;
-        deque<int> deq(nums.cbegin(), nums.cend());
-        sort(deq.begin(), deq.end());
-        while (deq.size() != 0) {
-            auto min = deq[0];
-            auto max = deq.back();
-            us.insert(static_cast<double>(min + max) / 2.0);
-            deq.erase(--deq.cend());
-            deq.erase(deq.cbegin());
-            
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        while (i <= nums.size() / 2) {
+            us.insert(static_cast<double>(nums[i] + nums[nums.size() - i - 1]) / 2.0);
+            ++i;
         }
         return us.size();
     }
