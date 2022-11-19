@@ -35,6 +35,33 @@ public:
     }
 };
 
+// Other solution
+/*
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode *prev = nullptr;
+        ListNode *tmp = head->next;
+        head->next = prev;
+        prev = head;
+        head = tmp;
+	       while (head != nullptr) {
+            if (head->next != nullptr) {
+                tmp = head->next;
+                head->next = prev;
+                prev = head;
+                head = tmp;
+            } else {
+                head->next = prev;
+                break;
+            }
+        }
+        return head;
+    }
+};
+*/
+
 int main() {
   return 0;
 }
