@@ -9,16 +9,9 @@ public:
     
     // printNumber(x) outputs "x", where x is an integer.
     void zero(function<void(int)> printNumber) {
-        if (n == 1) {
-            std::unique_lock<std::mutex> lck(m);
-            while (tmp != 0) cv.wait(lck);
-            tmp = 1;
-            printNumber(0);
-            cv.notify_all();
-        } else {
             int nn = n % 2 == 0 ? n : n - 1;
             int ch = n % 2 == 1 ? n : n - 1;
-            while (ev <= n) {
+            while (ev <= nn || od <= ch) {
                 std::unique_lock<std::mutex> lck(m);
                 while (tmp != 0) cv.wait(lck);
                 if (prev == 1) {
@@ -32,7 +25,6 @@ public:
                     printNumber(0);
                 cv.notify_all();
             } 
-        }
     }
 
     void even(function<void(int)> printNumber) {
