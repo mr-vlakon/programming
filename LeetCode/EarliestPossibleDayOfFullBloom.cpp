@@ -15,12 +15,13 @@ public:
         });
         int answer = 0;
         int offset = 0;
-        vector<int> finishes;
+        int max = 0;
         for (int i = 0; i != v.size(); ++i) {
-            finishes.push_back(v[i].second + v[i].first + offset);
+            if (v[i].second + v[i].first + offset > max)
+                max = v[i].second + v[i].first + offset;
             offset += v[i].second;
             if (v.size() - 1 == i) {                
-                answer = max(v[i].first + v[i].second, *max_element(finishes.cbegin(), finishes.cend()));
+                answer = std::max(v[i].first + v[i].second, max);
             }
         } 
         return answer;
