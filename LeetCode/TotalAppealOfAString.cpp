@@ -1,7 +1,6 @@
 class Solution {
 public:
     long long appealSum(string s) {
-        long long answer = 0;
         unordered_map<char, size_t> um;
         vector<long long> dp(s.size(), 0);
         um[s[0]] = 1;
