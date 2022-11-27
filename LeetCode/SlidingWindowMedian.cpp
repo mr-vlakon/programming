@@ -6,7 +6,6 @@ public:
         multiset<long long> ms;
         for (int i = 0; i != k; ++i) {
             ms.insert(nums[i]);
-            ++um[nums[i]];
         }
         
         if (k % 2 == 1) {
@@ -19,16 +18,8 @@ public:
         }
         
         for (int i = 1; i <= nums.size() - k; ++i) {
-            um[nums[i - 1]]--;
-            ms.erase(nums[i - 1]);
-            if (um[nums[i - 1]] != 0) {
-                auto tmp = um[nums[i - 1]];
-                while (tmp != 0) {
-                    ms.insert(nums[i - 1]);
-                    --tmp;
-                }
-            }
-            um[nums[i + k - 1]]++;
+            auto it = ms.find(nums[i - 1]);
+            ms.erase(it);
             ms.insert(nums[i + k - 1]);
             if (k % 2 == 1) {
                 auto it = next(ms.cbegin(), ms.size() / 2);
@@ -41,8 +32,6 @@ public:
         }
         return answer;
     }
-private:
-    unordered_map<long long, int> um;
 };
 
 int main() {
