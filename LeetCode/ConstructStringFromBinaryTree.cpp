@@ -28,17 +28,7 @@ public:
         }
     }
     string tree2str(TreeNode* root) {
-        result += to_string(root->val);
-        if (root->left != nullptr || (root->right != nullptr)) {
-            result.push_back('(');
-            traverse(root->left);
-            result.push_back(')');
-        }
-        if (root->right != nullptr) {
-            result.push_back('(');
-            traverse(root->right);
-            result.push_back(')');
-        }
+        traverse(root);
         return result;
     }
 private:
