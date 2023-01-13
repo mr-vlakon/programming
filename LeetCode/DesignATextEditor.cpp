@@ -14,13 +14,12 @@ public:
         auto it = iter;
         --it;
         while (i != k) {
+            ++i;
             if (it != lst.begin()) {
-                ++i;
                 it = lst.erase(it);
                 --it;
             } else {
                 lst.erase(lst.begin());
-                ++i;
                 break;
             }
         }
@@ -38,42 +37,38 @@ public:
         if (iter == lst.begin()) {
             return "";
         }
-        string tmp;
         auto it = iter;
         --it;
         i = 0;
         while ((i < 10) && (it != lst.begin())) {
-            tmp.push_back(*it);
             --it;
             ++i;
         }
-        if (i != 10) {
-            tmp.push_back(*it);
-        }
-        return {tmp.rbegin(), tmp.rend()};
+        if (i == 10) {
+            ++it;
+        } 
+        return {it, iter};
     }
     
     string cursorRight(int k) {
-        int i = 0;
         if (lst.size() == 0) return "";
+        int i = 0;
         while ((i != k) && (iter != lst.end())) {
             ++iter;
             ++i;
         }
         if (iter == lst.begin()) return "";
-        string tmp;
         auto it = iter;
         --it;
         i = 0;
         while ((i < 10) && (it != lst.begin())) {
-            tmp.push_back(*it);
             --it;
             ++i;
         }
-        if (i != 10) {
-            tmp.push_back(*it);
-        }
-        return {tmp.rbegin(), tmp.rend()};
+        if (i == 10) {
+            ++it;
+        } 
+        return {it, iter};
     }
 private:
     list<char>::iterator iter;
