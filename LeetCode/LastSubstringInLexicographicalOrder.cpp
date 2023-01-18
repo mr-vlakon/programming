@@ -84,6 +84,9 @@ public:
                         end_ = remEnd;
                         --end_;
                         endStr = end_ + 1;
+                        if (*endStr == max) {
+                            ++endStr;
+                        }
                         while (start < end_) {
                             if (*end_ == max) {
                                 break;
