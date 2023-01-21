@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int minOperations(vector<int>& nums, vector<int>& numsDivide) {
@@ -31,6 +32,35 @@ public:
             return -1;
     }
 };
+*/
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide) {
+        auto gcd_ = numsDivide[0];
+        for (int i = 1; i != numsDivide.size(); ++i) {
+            gcd_ = gcd(gcd_, numsDivide[i]);
+        }
+        sort(nums.begin(), nums.end());
+        auto start = nums.begin();
+        auto prev = start;
+        int answer = 0;
+        while (start != nums.end()) {
+            if (gcd_ % *start == 0) {
+                return answer;
+            } else {
+                prev = start;
+                start = find_if(start + 1, nums.end(), [&](const int &x) {
+                    return x != *start;
+                });
+                answer += start - prev;
+            }
+        }
+        return -1;
+    }
+};
+
+
 
 int main() {
 
