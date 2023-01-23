@@ -8,8 +8,8 @@ public:
         um[0]++;
         int room = 0;
         int max = 1;
-        long long tmp = meetings[0][1];
-        priority_queue<pair<long long, int>, deque<pair<long long, int>>, greater<pair<long long, int>>> pq;
+        long tmp = meetings[0][1];
+        priority_queue<pair<long, int>, deque<pair<long, int>>, greater<pair<long, int>>> pq;
         pq.push({tmp, 0});
         priority_queue<int, deque<int>, greater<int>> pqMin;
         for (int i = 1; i != n; ++i) {
@@ -17,13 +17,13 @@ public:
         }     
         for (int i = 1; i != meetings.size(); ++i) {
             while (!pq.empty() && pq.top().first <= meetings[i][0]) {
-                    auto top = pq.top();
-                    pqMin.push(top.second);
-                    pq.pop();
+                auto top = pq.top();
+                pqMin.push(top.second);
+                pq.pop();
             }
             if (pqMin.empty()) {
                 auto top = pq.top();
-                long long start = 0;
+                long start = 0;
                 if (top.first > meetings[i][0]) {
                     start = top.first;
                 } else {
