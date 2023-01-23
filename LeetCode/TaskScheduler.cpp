@@ -12,21 +12,18 @@ public:
         sort(v.begin(), v.end(), [](pair<int, char> &lhs, pair<int, char> &rhs) {
             return lhs.first > rhs.first;
         });
-        
         int time = 0;
         while (true) {
             auto it = v.begin();
             int j = 0;
             int cnt = 0;
             while (j != (n + 1) && it != v.end()) {
-                if (it->first > 0) {
                     ++time;
                     --(it->first);
+                    if (it->first == 0)
+                        ++cnt;
                     ++j;
-                } else {
-                    ++cnt;
-                }
-                ++it;
+                    ++it;
             }
             sort(v.begin(), v.end(), [](pair<int, char> &lhs, pair<int, char> &rhs) {
                 return lhs.first > rhs.first;
