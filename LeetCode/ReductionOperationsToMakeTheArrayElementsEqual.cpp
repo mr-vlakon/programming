@@ -24,19 +24,17 @@ public:
     int reductionOperations(vector<int>& nums) {
         sort(nums.rbegin(), nums.rend());
         auto it = nums.cbegin();
+        auto prev = nums.cbegin();
         int size = 0;
         int answer = 0;
-        while (it != nums.cend()) {
-            auto prev = it;
+        int min = nums[nums.size() - 1];
+        while (*it != min) {
+            prev = it;
             it = find_if(it, nums.cend(), [&](const int &x) {
                 return x != *it;
             });
-            if (it == nums.cend()) {
-                break;
-            }
             size += it - prev;
             answer += size;
-            
         }
         return answer;
     }
