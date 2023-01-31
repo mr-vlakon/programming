@@ -5,6 +5,10 @@ public:
         string result;
         while (num != 0) {
             int tmp = num % cnt;
+            if (tmp == 0) {
+                cnt *= 10;
+                continue;
+            }
             num -= tmp;
             if (cnt == 10 && tmp == 9) {
                 result.push_back('X');
