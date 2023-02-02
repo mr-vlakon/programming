@@ -1,57 +1,56 @@
 class Solution {
 public:
-    struct hashFunction {
-        size_t operator()(const pair<int, int> &x) const
-        {
-            return x.first ^ x.second;
-        }
-    };
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        unordered_set<pair<int, int>, hashFunction> us;
         int answer = 0;
+        vector<vector<int>> index(grid.size(), vector<int>(grid[0].size(), 0));
         for (int i = 0; i != grid.size(); ++i) {
             for (int j = 0; j != grid[0].size(); ++j) {
-                queue<pair<int, int>> q;
-                if (grid[i][j] == 1) {
+                if (grid[i][j] == 1 && index[i][j] == 0) {
+                    queue<pair<int, int>> q;
                     int cnt = 1;
                     q.push({i, j});
-                    us.insert({i, j});
+                    index[i][j] = 1;
                     while(!q.empty()) {
                         auto top = q.front();
                         q.pop();
-                        if (((top.first + 1) < grid.size()) && 
-                        grid[top.first + 1][top.second] == 1 
-                        && us.find({top.first + 1, top.second}) == us.cend()) {
+                        
+                        if ((((top.first + 1) < grid.size())) && 
+                        (grid[top.first + 1][top.second] == 1) && (
+                            index[top.first + 1][top.second] == 0
+                        )) {
                             q.push({top.first + 1, top.second});
-                            us.insert({top.first + 1, top.second});
-                            ++cnt;
+                            index[top.first + 1][top.second] = 1;
+                            ++cnt; 
                         }
                         
                         if (((top.first - 1) >= 0) &&  
                         (grid[top.first - 1][top.second] == 1) &&
-                        (us.find({top.first - 1, top.second}) == us.cend())) {
+                        (index[top.first - 1][top.second] == 0)) {
+                            index[top.first - 1][top.second] = 1;
+                            //grid[top.first - 1][top.second] == -1;
                             q.push({top.first - 1, top.second});
-                            us.insert({top.first - 1, top.second});
                             ++cnt;
                         }
                         
                         if (((top.second + 1) < grid[0].size()) && 
                         (grid[top.first][top.second + 1] == 1) &&
-                        us.find({top.first, top.second + 1}) == us.cend()) {
+                        (index[top.first][top.second + 1] == 0)) {
+                            //grid[top.first][top.second + 1] == -1;
+                            index[top.first][top.second + 1] = 1;
                             q.push({top.first, top.second + 1});
-                            us.insert({top.first, top.second + 1});
                             ++cnt;
                         }
                         
                         if (((top.second - 1) >= 0) &&
-                        (grid[top.first][top.second - 1] == 1) && 
-                        us.find({top.first, top.second - 1}) == us.cend()) {
+                        (grid[top.first][top.second - 1] == 1) && (index[top.first][top.second - 1] == 0)) {
+                            index[top.first][top.second - 1] = 1;
+                            //grid[top.first][top.second - 1] == -1;
                             q.push({top.first, top.second - 1});
-                            us.insert({top.first, top.second - 1});
                             ++cnt;
-                        }    
-                    }    
-                    answer = max(answer, cnt);          
+                        }   
+                            
+                    }
+                    answer = max(answer, cnt);
                 }
             }
         }
