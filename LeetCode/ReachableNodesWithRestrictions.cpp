@@ -4,13 +4,13 @@ public:
         queue<int> q;
         unordered_set<int> us;
         unordered_set<int> rest;
-        unordered_map<int, unordered_set<int>> um;
+        unordered_map<int, vector<int>> um;
         for (const auto &e: restricted) {
             rest.insert(e);
         }
         for (const auto &e: edges) {
-            um[e[0]].insert(e[1]);
-            um[e[1]].insert(e[0]);
+            um[e[0]].push_back(e[1]);
+            um[e[1]].push_back(e[0]);
         }
         q.push(0);
         us.insert(0);
