@@ -1,14 +1,13 @@
 class Solution {
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
-        unordered_map<int, unordered_set<int>> um;
+        unordered_map<int, vector<int>> um;
         int i = 1;
         for (const auto &e: isConnected) {
-            //um[i];
             int j = 1;
             for (const auto &p: e) {
                 if (p == 1 && i != j) {
-                    um[i].insert(j);
+                    um[i].push_back(j);
                 }
                 ++j;
             }
