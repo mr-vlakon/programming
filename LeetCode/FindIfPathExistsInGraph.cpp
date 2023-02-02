@@ -1,3 +1,4 @@
+/*
 struct Edge {
     int top = 0;
     int adj = 0;
@@ -37,6 +38,36 @@ public:
             }
         }
         return false;
+    }
+};
+*/
+
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        if (source == destination) return true;
+        queue<int> q;
+        unordered_set<int> us;
+        unordered_map<int, vector<int>> um;
+        for (const auto &e: edges) {
+            um[e[0]].push_back(e[1]);
+            um[e[1]].push_back(e[0]);
+        }
+        q.push(source);
+        while(!q.empty()) {
+            auto top = q.front();
+            q.pop();
+            for (const auto &e: um[top]) {
+                if (us.find(e) == us.cend()) {
+                    if (e == destination) {
+                        return true;
+                    }    
+                    us.insert(e);
+                    q.push(e);
+                }
+            }
+        }
+        return false; 
     }
 };
 
