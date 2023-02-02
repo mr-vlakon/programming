@@ -27,10 +27,10 @@ public:
             return {target->val};
         }
         traversal(root);
-        unordered_map<int, unordered_set<int>> um;
+        unordered_map<int, vector<int>> um;
         for (const auto &e: v) {
-            um[e[0]].insert(e[1]);
-            um[e[1]].insert(e[0]);
+            um[e[0]].push_back(e[1]);
+            um[e[1]].push_back(e[0]);
         }
         queue<pair<int, int>> q;
         unordered_set<int> us;
@@ -41,21 +41,19 @@ public:
             if (e != target->val)
                 q.push({e, 1});
         }
-        unordered_set<int> search;
         while(!q.empty()) {
             auto top = q.front();
             q.pop();
             for (const auto &e: um[top.first]) {
-                if ((us.find(e) == us.cend()) && (e != target->val) && (search.find(e) == search.cend())) {    
-                    if (((top.second + 1) == k) ) { 
+                if (us.find(e) == us.cend() && e != target->val) {    
+                    if ((top.second == (k - 1)) && (e != target->val)) { 
                         result.push_back(e);
                     }
                     us.insert(e);
-                    search.insert(e);
                     q.push({e, top.second + 1});
                 }
             }
-            search.insert(top.first);
+            us.insert(top.first);
         }
         return result; 
     }
