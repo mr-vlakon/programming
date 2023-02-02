@@ -24,17 +24,17 @@ public:
     }
     int amountOfTime(TreeNode* root, int start) {
         traversal(root);
-        unordered_map<int, unordered_set<int>> um;
+        unordered_map<int, vector<int>> um;
         for (const auto &e: v) {
-            um[e[0]].insert(e[1]);
-            um[e[1]].insert(e[0]);
+            um[e[0]].push_back(e[1]);
+            um[e[1]].push_back(e[0]);
         }
         queue<pair<int, int>> q;
         unordered_set<int> us;
         for (const auto &e: um[start]) {
-            if (e != start)
-                q.push({e, 1});
+            q.push({e, 1});
         }
+        us.insert(start);
         int answer = 0;
         while(!q.empty()) {
             auto top = q.front();
@@ -42,7 +42,7 @@ public:
             answer = top.second;
             us.insert(top.first);                  
             for (const auto &e: um[top.first]) {
-                if ((us.find(e) == us.cend()) && (e != start)) {    
+                if (us.find(e) == us.cend()) {    
                     us.insert(e);
                     q.push({e, top.second + 1});
                 }
