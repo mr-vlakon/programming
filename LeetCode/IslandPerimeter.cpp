@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int islandPerimeter(vector<vector<int>>& grid) {
@@ -48,6 +49,68 @@ public:
                             if (!visited[top.first][top.second - 1]) {
                                 q.push({top.first, top.second - 1});
                                 visited[top.first][top.second - 1] = true;
+                                answer += 4;
+                            }
+                        }
+                        answer -= count; 
+                    }              
+                }
+            }
+        }
+        return answer; 
+    }
+};
+*/
+class Solution {
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int answer = 0;
+        queue<pair<int, int>> q;
+        int count = 0;
+        pair<int, int> top;
+        for (int i = 0; i != grid.size(); ++i) {
+            for (int j = 0; j != grid[0].size(); ++j) {
+                if (grid[i][j] == 1) {
+                    answer += 4;
+                    q.push({i, j});
+                    grid[i][j] = -1;
+                    while(!q.empty()) {
+                        top = q.front();
+                        q.pop();
+                        count = 0;
+                        if (((top.first + 1) < grid.size()) && 
+                        abs(grid[top.first + 1][top.second]) == 1) {
+                            ++count;
+                            if (grid[top.first + 1][top.second] == 1) {
+                                q.push({top.first + 1, top.second});
+                                grid[top.first + 1][top.second] = -1;
+                                answer += 4;
+                            }
+                        }                        
+                        if (((top.first - 1) >= 0) &&  
+                        (abs(grid[top.first - 1][top.second]) == 1)) {
+                            ++count;
+                            if (grid[top.first - 1][top.second] == 1) {
+                                q.push({top.first - 1, top.second});
+                                grid[top.first - 1][top.second] = -1;
+                                answer += 4;
+                            }
+                        }
+                        if (((top.second + 1) < grid[0].size()) && 
+                        (abs(grid[top.first][top.second + 1]) == 1)) {
+                            ++count;
+                            if (grid[top.first][top.second + 1] == 1) {
+                                q.push({top.first, top.second + 1});
+                                grid[top.first][top.second + 1] = -1;
+                                answer += 4;
+                            }
+                        }
+                        if (((top.second - 1) >= 0) &&
+                        (abs(grid[top.first][top.second - 1]) == 1)) {
+                            ++count;
+                            if (grid[top.first][top.second - 1] == 1) {
+                                q.push({top.first, top.second - 1});
+                                grid[top.first][top.second - 1] = -1;
                                 answer += 4;
                             }
                         }
