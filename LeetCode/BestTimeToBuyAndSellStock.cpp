@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -9,6 +10,20 @@ public:
             minV = min(minV, prices[i]);
         }
         return dp.back();
+    }
+};
+*/
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int answer = 0;
+        int minV = prices[0];
+        for (int i = 1; i < prices.size(); ++i) {
+            answer = max(answer, prices[i] - minV);
+            minV = min(minV, prices[i]);
+        }
+        return answer;
     }
 };
 
