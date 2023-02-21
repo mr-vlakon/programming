@@ -5,15 +5,16 @@ public:
         if (veganFriendly) {
             for (const auto &e: restaurants) {
                 if (e[2] && e[3] <= maxPrice && e[4] <= maxDistance) {
-                    tmp.push_back(e);
+                    tmp.push_back({e[0], e[1]});
                 }
             }
         } else {
             for (const auto &e: restaurants) {
                 if (e[3] <= maxPrice && e[4] <= maxDistance) {
-                    tmp.push_back(e);
+                    tmp.push_back({e[0], e[1]});
                 }
-            }        }
+            }        
+        }
         sort(tmp.begin(), tmp.end(), [](vector<int> &lhs, vector<int> &rhs) {
             return lhs[0] > rhs[0];
         });
