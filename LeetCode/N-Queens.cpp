@@ -1,8 +1,8 @@
 class Solution {
 public:
-    void placeQueens(vector<int> &v, int r) {
-        if (r >= n_) {
-            vector<string> tmp(v.size(), string(n_, '.'));
+    void placeQueens(vector<int> &v, int r, const int & n) {
+        if (r == n) {
+            vector<string> tmp(v.size(), string(n, '.'));
             int i = 0;
             for (const auto &e: v) {
                 tmp[i][e] = 'Q';
@@ -11,29 +11,28 @@ public:
             answer.push_back(tmp);
             return;
         } else {
-            for (int j = 0; j < n_; ++j) {
+            for (int j = 0; j != n; ++j) {
                 bool legal = true;
-                for (int i = 0; i < r; ++i) {
+                for (int i = 0; i != r; ++i) {
                     if (v[i] == j || v[i] == (j + r - i) || v[i] == (j - r + i)) {
                         legal = false;
                     }
                 }
                 if (legal) {
                     v[r] = j;
-                    placeQueens(v, r + 1);
+                    placeQueens(v, r + 1, n);
                 }
             }
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        n_ = n;
-        vector<int> v(n_, 0);
-        placeQueens(v, 0);
+        vector<int> v(n, 0);
+        int r = 0;
+        placeQueens(v, r, n);
         return answer;
     }
 private:
     vector<vector<string>> answer;
-    int n_ = 4;
 };
 
 int main() {
