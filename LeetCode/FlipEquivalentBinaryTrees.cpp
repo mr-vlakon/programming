@@ -26,12 +26,26 @@ public:
         traverse(p->left, q->left);
         traverse(p->right, q->right);
     }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
+    bool isSameTree(TreeNode* &p, TreeNode* &q) {
         if (p == nullptr && q == nullptr) return true;
-        if (q == nullptr || p == nullptr) return false;
-        if (p->val != q->val) return false;
-        return isSameTree(p->right, q->right) && isSameTree(p->left, q->left);
+        if (p == nullptr && q != nullptr) return false;
+        if (p != nullptr && q == nullptr) return false;
+        if (p->val != q->val) return false;    
+        if (p->left == nullptr && q->left != nullptr) return false;
+        if (p->left != nullptr && q->left == nullptr) return false;
+        if (p->right == nullptr && q->right != nullptr) return false;
+        if (p->right != nullptr && q->right == nullptr) return false;        
+        if (p->left == nullptr && q->left == nullptr) {
+            return isSameTree(p->right, q->right);
+        }
+        if (p->right == nullptr && q->right == nullptr) {
+            return isSameTree(p->left, q->left);
+        }
+        if (p->left->val != q->left->val) return false;
+        if (p->right->val != q->right->val) return false;
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
     }
+
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
         traverse(root1, root2);
         return isSameTree(root1, root2);
