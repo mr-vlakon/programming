@@ -1,27 +1,24 @@
 class Solution {
 public:
-    void generate(int index = -1, vector<int> curr = {}) {
-        if (index == v.size())
-            return; 
-        if (!curr.empty()) {
-            res.push_back(curr);
+    void generate(const vector<int> &num, int i, vector<int> &v) {
+        if (i == num.size()) {
+            result.push_back(v);
+            return;
         }
-        for (int i = index + 1; i < v.size(); i++) {
-            curr.push_back(v[i]);
-            generate( i, curr);
-            curr.pop_back();
-        }
-        return;
+        v.push_back(num[i]);
+        generate(num, i + 1, v);
+        v.pop_back();
+        generate(num, i + 1, v);
+
     }
+
     vector<vector<int>> subsets(vector<int>& nums) {
-        v = nums;
-        res.resize(1);
-        generate();
-        return res;
+        vector<int> empty;
+        generate(nums, 0, empty);
+        return result;
     }
 private:
-    vector<int> v;
-    vector<vector<int>> res;
+    vector<vector<int>> result;
 };
 
 int main() {
