@@ -11,7 +11,7 @@
  */
 class Solution {
 public:  
-    bool isSameTree(TreeNode* p, TreeNode* q) {
+    bool isSameTree(TreeNode* &p, TreeNode* &q) {
         if (p == nullptr && q == nullptr) return true;
         if (p == nullptr && q != nullptr) return false;
         if (p != nullptr && q == nullptr) return false;
