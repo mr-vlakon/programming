@@ -1,37 +1,22 @@
 class Solution {
 public:
-    void generate(vector<int> num, int index = -1,
-                    vector<int> curr = {}) {
-        if (index == num.size())
+    void generate(const vector<int> &num, int i, int &currXor) {
+        if (i == num.size()) {
+            answer += currXor;
             return;
-
-        if (!curr.empty()) {
-            v.push_back(curr);
         }
-
-        for (int i = index + 1; i < num.size(); i++) {
-            curr.push_back(num[i]);
-            generate(num, i, curr);
-            curr.pop_back();
-        }
-        
-        return;
+        int tmp = currXor;
+        currXor ^= num[i];
+        generate(num, i + 1, currXor);
+        generate(num, i + 1, tmp);
     }
     int subsetXORSum(vector<int>& nums) {
-        generate(nums);
-        int sum = 0;
-        for (const auto &e: v) {
-            int tmp = 0;
-            for (const auto &p: e) {
-                tmp ^= p;
-            }
-            sum += tmp;
-        }
-        
-        return sum;
+        int x = 0;
+        generate(nums, 0, x);
+        return answer;
     }
 private:
-    vector<vector<int>> v;
+    int answer = 0;
 };
 
 int main() {
