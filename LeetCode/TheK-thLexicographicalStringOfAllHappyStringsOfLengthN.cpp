@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     bool isHappy(const string &s) {
@@ -31,6 +32,61 @@ public:
     }    
 private:
     const vector<char> set = {'a', 'b', 'c'};
+    vector<string> v;
+};
+*/
+
+class Solution {
+public:
+    void generate(string &tmp) {
+        if (tmp.size() == n_) {
+            v.push_back(tmp);
+            return;
+        }
+        if (tmp.size() == 0) {
+            string temp = tmp;
+            string temp2 = tmp;
+            tmp.push_back('a');
+            generate(tmp);
+            temp.push_back('b');
+            generate(temp);
+            temp2.push_back('c');
+            generate(temp2);
+        } else {
+            if (tmp.back() == 'a') {
+                string temp = tmp;
+                tmp.push_back('b');
+                generate(tmp);
+                temp.push_back('c');
+                generate(temp);
+            } else if (tmp.back() == 'b') {
+                string temp = tmp;
+                tmp.push_back('c');
+                generate(tmp);
+                temp.push_back('a');
+                generate(temp);
+            } else if (tmp.back() == 'c') {
+                string temp = tmp;
+                tmp.push_back('b');
+                generate(tmp);
+                temp.push_back('a');
+                generate(temp);
+            }
+        }
+    }
+
+    string getHappyString(int n, int k) {
+        string empty;
+        n_ = n;
+        generate(empty);
+        sort(v.begin(), v.end());
+        if (k > v.size()) {
+            return "";
+        }
+        return v[k - 1];
+    }
+private:
+    int n_ = 0;
     vector<string> v;
 };
 
