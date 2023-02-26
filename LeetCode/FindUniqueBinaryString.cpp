@@ -1,31 +1,42 @@
 class Solution {
 public:
-void generate(char set[], string prefix,
-                                    int n, int k) {
-        if (k == 0)
-        {
-            if (st.find(prefix) == st.cend()) {
-                v.push_back(prefix);
+    string generate(const vector<string> &nums, int i, string &s) {
+        if (i == nums.size()) {
+            if (s.size() == n_) {
+                if (us.find(s) == us.end()) {
+                    return s;
+                }
             }
-            return;
         }
-        for (int i = 0; i < n; i++) {
-            string newPrefix;
-            newPrefix = prefix + set[i];
-            generate(set, newPrefix, n, k - 1);
-        } 
+        if (i > nums.size()) {
+            return "";
+        }
+        s.push_back('0');
+        string s1;
+        s1 = generate(nums, i + 1, s);
+        if (s1.size() != 0) {
+            return s1;
+        }
+        s.pop_back();
+        s.push_back('1');
+        s1 = generate(nums, i + 1, s);
+        s.pop_back();
+        if (s1.size() != 0) {
+            return s1;
+        }
+        return "";
     }
     string findDifferentBinaryString(vector<string>& nums) {
+        n_ = nums[0].size();
         for (const auto &e: nums) {
-            st.insert(e);
+            us.insert(e);
         }
-        char set[2] = {'0', '1'};
-        generate(set, "", 2, nums.size());
-        return v.back();
+        string str;
+        return generate(nums, 0, str);
     }
 private:
-    set<string> st;
-    vector<string> v;
+    unordered_set<string> us;
+    int n_ = 0;
 };
 
 int main() {
