@@ -1,5 +1,48 @@
 class Solution {
 public:
+    vector<long long> maximumEvenSplit(long long finalSum) {
+        if ((finalSum % 2 ) == 1) return {};
+        vector<long long> empty;
+        long long start = 2;
+        long long val = 2;
+        long long x = 0;
+        while (x < finalSum) {
+            x += start;
+            val = start;
+            start += 2;
+        }
+        if (x != finalSum) {
+            start = 2;
+            int ban = 0;
+            while (x != finalSum) {
+                x -= start;
+                if (x == finalSum) {
+                    ban = start;
+                    break;
+                }
+                x += start;
+                start += 2;
+            }
+            start = 2;
+            while (start <= val) {
+                if (start != ban) {
+                    empty.push_back(start);
+                }
+                start += 2;
+            }
+        } else {
+            start = 2;
+            while (start <= val) {
+                empty.push_back(start);
+                start += 2;
+            }
+        }
+        return empty;
+    }
+};
+/*
+class Solution {
+public:
     void generate(long long &finalSum, vector<long long> &v, long long &start) {
         if (status) {
             return;
@@ -58,6 +101,7 @@ private:
     long long x = 0;
     vector<long long> answer;
 };
+*/
 /*
 class Solution {
 public:
