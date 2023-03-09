@@ -3,6 +3,7 @@ struct ListNode {
       ListNode *next;
       ListNode(int x) : val(x), next(NULL) {}
  };
+/*
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
@@ -22,6 +23,21 @@ public:
             }
             head = head->next;
             ++index;
+        }
+        return nullptr;        
+    }
+};
+*/
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        unordered_set<ListNode *> us;
+        while(head) {
+            if (us.find(head) != us.cend()) {
+                return head;
+            }
+            us.insert(head);
+            head = head->next;
         }
         return nullptr;        
     }
