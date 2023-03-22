@@ -56,6 +56,7 @@ public:
     }
 };
 */
+
 class Solution {
 public:
     int scoreOfParentheses(string s) {
@@ -63,7 +64,6 @@ public:
         int answer = 0;        
         st.push(1);
         int x = 0;
-        int siz = 0;
         int cnt = 1;
         for (int i = 1; i != s.size() - 1; ++i) {
             if (s[i] == '(' && s[i - 1] == '(') {
@@ -72,9 +72,8 @@ public:
                 st.pop();
                 st.push(x * 2);            
             } if (s[i] == '(' && s[i - 1] == ')') {
-                siz = cnt;
-                ++cnt;                
-                st.push(pow(2, siz));
+                st.push(pow(2, cnt));
+                ++cnt;
             } else if (s[i] == ')'){
                 x = st.top();
                 --cnt;
