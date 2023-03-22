@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int scoreOfParentheses(string s) {
@@ -49,6 +50,40 @@ public:
             if (st.top() != -1 && st.top() != -2) {
                 answer += st.top();
             }
+            st.pop();
+        }
+        return answer;
+    }
+};
+*/
+class Solution {
+public:
+    int scoreOfParentheses(string s) {
+        stack<int> st;
+        int answer = 0;        
+        st.push(1);
+        int x = 0;
+        int siz = 0;
+        int cnt = 1;
+        for (int i = 1; i != s.size() - 1; ++i) {
+            if (s[i] == '(' && s[i - 1] == '(') {
+                x = st.top();
+                ++cnt;
+                st.pop();
+                st.push(x * 2);            
+            } if (s[i] == '(' && s[i - 1] == ')') {
+                siz = cnt;
+                ++cnt;                
+                st.push(pow(2, siz));
+            } else if (s[i] == ')'){
+                x = st.top();
+                --cnt;
+                st.pop();
+                st.push(x);
+            }
+        }
+        while (!st.empty()) {
+            answer += st.top();
             st.pop();
         }
         return answer;
