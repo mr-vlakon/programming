@@ -9,32 +9,24 @@ public:
         }
         tmp = 0;
         mid = (left + right) / 2;
-        if (mid == 0) return;
         for (const auto &e: nums) {
-            tmp += ceil(static_cast<double>(e) / static_cast<double>(mid));
+            tmp += ceil(static_cast<double>(e) / static_cast<double>(mid + 1));
         }
         if (tmp <= th) {
-            answer = min(answer, mid);
+            answer = min(answer, mid + 1);
             right = mid - 1;
             binary(nums, left, right); 
         } else {
-            left = mid + 1;
+            left = mid  + 1; 
             binary(nums, left, right);        
         }
     }
+
     int smallestDivisor(vector<int>& nums, int threshold) {
         th = threshold;
-        int maxV = *max_element(nums.cbegin(), nums.cend());
+        int maxV = *max_element(nums.cbegin(), nums.cend()) - 1;
         int left = 0;
         binary(nums, left, maxV);
-        mid = 1;
-        tmp = 0;
-        for (const auto &e: nums) {
-            tmp += e;
-        }
-        if (tmp <= th) {
-            answer = min(answer, 1);
-        }
         return answer;
     }
 private:
