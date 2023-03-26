@@ -1,29 +1,28 @@
-
 class Solution {
 public:
-    void binary(const vector<int> &price, const int &k, int &left, int &right) {
+    void binary(const vector<int> &position, const int &k, int &left, int &right) {
         if (left > right) {
             return;
         }
         mid = (left + right) / 2;
         cnt = 0;
-        for (int i = 0; i != price.size(); ++i) {
+        for (int i = 0; i != position.size(); ++i) {
             if (lastTaken == 0) {
-                lastTaken = price[i];
+                lastTaken = position[i];
                 ++cnt;
-            } else if ((price[i] - lastTaken) >= (mid + 1)) {
+            } else if ((position[i] - lastTaken) >= (mid + 1)) {
                 ++cnt;
-                lastTaken = price[i];
+                lastTaken = position[i];
             }
         }
         lastTaken = 0;
         if (cnt >= k) {
             answer = max(answer, (mid + 1));
             left = mid + 1;
-            binary(price, k, left, right);
+            binary(position, k, left, right);
         } else {
             right = mid - 1;
-            binary(price, k, left, right);
+            binary(position, k, left, right);
         }
     }
 
