@@ -18,9 +18,6 @@ public:
             v.push_back({intervals[i][0], i});
         }
         sort(v.begin(), v.end(), [] (pair<int, int> &lhs, pair<int, int> &rhs) {
-            return lhs.second < rhs.second;
-        });
-        stable_sort(v.begin(), v.end(), [] (const pair<int, int> &lhs, const pair<int, int> &rhs) {
             return lhs.first < rhs.first;
         });
         int left = 0;
