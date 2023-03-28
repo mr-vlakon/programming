@@ -13,13 +13,13 @@ public:
         }
     }
 
-    TopVotedCandidate(vector<int>& persons, vector<int>& times) : per(persons), time(times) {
-        hash.resize(per.size(), 0);
+    TopVotedCandidate(vector<int>& persons, vector<int>& times) : time(times) {
+        hash.resize(persons.size(), 0);
         for (int i = 0; i != times.size(); ++i) {
-            um[per[i]]++;
-            if (um[per[i]] >= maxV) {
-                maxV = um[per[i]];
-                maxP = per[i];
+            um[persons[i]]++;
+            if (um[persons[i]] >= maxV) {
+                maxV = um[persons[i]];
+                maxP = persons[i];
             }
             hash[i] = maxP;
         }
@@ -41,7 +41,6 @@ private:
     int maxV = 0;
     int maxP = 0;
     vector<int> hash;
-    vector<int> per;
     vector<int> time;
     unordered_map<int, int> um;
 };
