@@ -33,12 +33,12 @@ public:
             k = 0;
             while (k != 31 && (e >= (1 << k))) {
                 num = (e & (1 << k));
-                if (num != 0) {
-                    hash[k]++;
-                    answer = max(answer, hash[k]);
-                }
+                hash[k] += (num > 0) ? 1 : 0;
                 ++k;
             }
+        }
+        for (const auto &e: hash) {
+            answer = max(answer, e);
         }
         return answer;
     }
