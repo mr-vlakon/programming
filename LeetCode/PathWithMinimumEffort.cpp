@@ -15,10 +15,13 @@ public:
             pq.pop();
             if (visited[top.second.first][top.second.second] == true) {
                 continue;
-            }
-            
+            }    
+            if (top.first > dist[top.second.first][top.second.second]) {
+                continue;
+            }       
             visited[top.second.first][top.second.second] = true;          
-            if ((top.second.first - 1) >= 0 && !visited[top.second.first - 1][top.second.second]) {
+            if ((top.second.first - 1) >= 0 && !visited[top.second.first - 1][top.second.second]
+            && top.first < dist[top.second.first - 1][top.second.second]) {
                 newV = abs(heights[top.second.first][top.second.second] - heights[top.second.first - 1][top.second.second]);
                 if (newV < dist[top.second.first - 1][top.second.second]) {
                     tmp = max(newV, top.first);
@@ -26,7 +29,7 @@ public:
                     pq.push({tmp, {top.second.first - 1, top.second.second}});
                 }
             }
-            if ((top.second.first + 1) < heights.size() && !visited[top.second.first + 1][top.second.second]) {
+            if ((top.second.first + 1) < heights.size() && !visited[top.second.first + 1][top.second.second] && top.first < dist[top.second.first + 1][top.second.second]) {
                 newV = abs(heights[top.second.first][top.second.second] - 
                 heights[top.second.first + 1][top.second.second]);
                 if (newV < dist[top.second.first + 1][top.second.second]) {
@@ -35,7 +38,7 @@ public:
                     pq.push({tmp, {top.second.first + 1, top.second.second}});
                 }
             }
-            if ((top.second.second - 1) >= 0 && !visited[top.second.first][top.second.second - 1]) {
+            if ((top.second.second - 1) >= 0 && !visited[top.second.first][top.second.second - 1]&& top.first < dist[top.second.first][top.second.second - 1]) {
                 newV = abs(heights[top.second.first][top.second.second] - heights[top.second.first][top.second.second - 1]);
                 if (newV < dist[top.second.first][top.second.second - 1]) {
                     tmp = max(newV, top.first);
@@ -43,7 +46,7 @@ public:
                     pq.push({tmp, {top.second.first, top.second.second - 1}});
                 }
             }
-            if ((top.second.second + 1) < heights[0].size() && !visited[top.second.first][top.second.second + 1]) {
+            if ((top.second.second + 1) < heights[0].size() && !visited[top.second.first][top.second.second + 1] && top.first < dist[top.second.first][top.second.second + 1]) {
                  newV = abs(heights[top.second.first][top.second.second] - heights[top.second.first][top.second.second + 1]);
                 if (newV < dist[top.second.first][top.second.second + 1]) {
                     tmp = max(newV, top.first);
@@ -58,7 +61,6 @@ public:
         return dist[dist.size() - 1][dist[0].size() - 1];        
     }
 };
-
 int main() {
   
   
