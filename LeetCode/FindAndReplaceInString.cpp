@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     string findReplaceString(string s, vector<int>& indices, vector<string>& sources, vector<string>& targets) {
@@ -27,7 +28,31 @@ public:
         return s;
     }
 };
-
+*/
+class Solution {
+public:
+    string findReplaceString(string s, vector<int>& indices, vector<string>& sources, vector<string>& targets) {
+        vector<pair<int, pair<string, string>>> ind;
+        for (int i = 0; i != indices.size(); ++i) {
+            if (string{s.cbegin() + indices[i], s.cbegin() + indices[i] + sources[i].size() } == sources[i]
+            ) {
+                ind.push_back({indices[i], {sources[i], targets[i]}});
+            }
+        }
+        sort(ind.begin(), ind.end(), [] (pair<int, pair<string, string>> &lhs, pair<int, pair<string, string>> &rhs) {
+            return lhs.first < rhs.first;
+        });
+        string answer;
+        int offset = 0;
+        size_t pos = 0;
+        for (int i = 0; i != ind.size(); ++i) {
+            pos = ind[i].first + offset;
+            offset += ind[i].second.second.size() - ind[i].second.first.size();
+            s.replace(pos, ind[i].second.first.size(), ind[i].second.second);
+        }
+        return s;
+    }
+};
 int main() {
   
   
