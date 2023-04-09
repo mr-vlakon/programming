@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     bool stoneGame(vector<int>& piles) {
@@ -21,6 +22,7 @@ public:
         return maxM >= maxY;
     }
 };
+*/
 
 int main() {
   
