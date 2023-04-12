@@ -1,3 +1,4 @@
+class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
         sort(changed.begin(), changed.end());
@@ -10,18 +11,19 @@ public:
             if ((e % 2) == 1 && un[e] > 0) {
                 un[e]--;
                 un[e * 2]--;
+                if (un[e * 2] < 0) return {};
                 ans.push_back(e);
             } else if ((e % 2) == 0 && un[e] > 0){
                 ans.push_back(e);
                 un[e]--;
                 un[e * 2]--;
+                if (un[e * 2] < 0) return {};
             }
         }
         if ((ans.size()*2) != changed.size()) return {};
         return ans;
    }
 };
-
 int main() {
   
   
