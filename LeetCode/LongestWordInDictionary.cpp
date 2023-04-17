@@ -14,7 +14,6 @@ public:
             us.insert(e);
         }
         string tmp;
-        vector<string> answer;
         for (const auto &e: words) {
             status = true;
             tmp = e;
