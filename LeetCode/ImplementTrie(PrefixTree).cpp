@@ -43,15 +43,16 @@ public:
     }
     void construct(string &word) {
         if (word.size() == 0) return;
+        word.pop_back();
         if (us.find(word) != us.cend()) return;
         else us.insert(word);
-        word.pop_back();
         construct(word);
     }
 
     void insert(string word) {
         searchable.insert(word);
         if (us.find(word) != us.cend()) return;
+        else us.insert(word);
         construct(word);
     }
     
@@ -74,6 +75,7 @@ private:
  * bool param_2 = obj->search(word);
  * bool param_3 = obj->startsWith(prefix);
  */
+
 int main() {
   
     
