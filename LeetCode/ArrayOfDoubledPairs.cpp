@@ -14,15 +14,16 @@ public:
             if (it1 != um.cend() && it2 != um.cend()) {
                 um[e * 2]--;
                 um[e]--;
-                if (um[e * 2] == 0) {
-                    um.erase(e * 2);
-                }
-                if (um[e] == 0) {
+                if (um[e] <= 0) {
                     um.erase(e);
                 }
+                if (e != 0 && um[e * 2] <= 0) {
+                    um.erase(e * 2);
+                }
+                if (um.size() == 0) return true;
             }
         }
-        return um.size() == 0;
+        return false;
     }
 };
 
