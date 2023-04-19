@@ -15,7 +15,7 @@ public:
             }
         }
         answer = max(answer, tmp + sum);
-        for (int i = 1; i < static_cast<int>(customers.size()) - minutes + 1; ++i) {
+        for (int i = 1; i < customers.size() - minutes + 1; ++i) {
             if (grumpy[i - 1] == 1) {
                 tmp -= customers[i - 1];
             }
