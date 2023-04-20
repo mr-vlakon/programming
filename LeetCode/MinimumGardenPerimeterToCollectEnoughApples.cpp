@@ -4,22 +4,13 @@ public:
         if (left > right) return;
         mid = (left + right) / 2;
         tmp = 0;
-        if ((mid % 2) == 0) {
-            end = mid / 2;
-            firstSum = (mid - end + 1)*(mid + end) - end;
-            s = (end*(end + 1)) / 2;
-            tmp = (end + 1)*firstSum - s*(mid + 1);
-            tmp *= 2;
-            tmp -= end * (end + 1);
-        } else {
-            middle_ = abs(mid - 1);
-            end = middle_/2;
-            firstSum = (middle_ - end + 1)*(middle_ + end) - end;
-            s = (end*(end + 1)) / 2;
-            tmp = (end + 1)*firstSum - s*(middle_ + 1);
-            tmp *= 2;
-            tmp -= end*(end + 1);
-        }
+        middle_ = ((mid % 2) == 0) ? mid : (mid - 1);
+        end = middle_/2;
+        firstSum = (middle_ - end + 1)*(middle_ + end) - end;
+        s = (end*(end + 1)) / 2;
+        tmp = (end + 1)*firstSum - s*(middle_ + 1);
+        tmp *= 2;
+        tmp -= end*(end + 1);
         if (tmp < num) {
             left = mid + 1;
             binary(num, left, right);
@@ -45,10 +36,3 @@ private:
     long long answer = 1000000000000000;
     long long tmp = 0; 
 };
-
-int main() {
-  
-  
-  
-  return 0;  
-}
