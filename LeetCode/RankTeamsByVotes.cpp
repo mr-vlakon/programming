@@ -1,4 +1,4 @@
-    class Solution {
+class Solution {
 public:
     string rankTeams(vector<string>& votes) {
         string result;        
@@ -11,7 +11,7 @@ public:
                 hasher[votes[i][j] - 'A'][j]++;
             }
         }
-        sort(hasher.begin(), hasher.end(), [](const vector<int> &lhs, const vector<int> &rhs) {
+        sort(hasher.begin(), hasher.end(), [](vector<int> &lhs, vector<int> &rhs) {
             return lhs > rhs;
         });
         for (int i = 0; i != votes[0].size(); ++i) {
