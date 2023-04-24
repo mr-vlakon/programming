@@ -27,6 +27,7 @@ public:
     }
 };
 */
+/*
 class Solution {
 public:
     int numberOfArithmeticSlices(vector<int>& nums) {
@@ -49,6 +50,26 @@ public:
         if (dp >= 3) {
             answer += dp - 2;
         }
+        return answer;
+    }
+};
+*/
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        if (nums.size() < 3) return 0;
+        int answer = 0;
+        int dp = 2;
+        for (int i = 2; i != nums.size(); ++i) {
+            if ((nums[i] - nums[i - 1]) == (nums[i - 1] - nums[i - 2])) {
+                answer += dp - 2;
+                dp++;
+            } else {
+                answer += dp - 2;
+                dp = 2;
+            }
+        }  
+        answer += dp - 2;
         return answer;
     }
 };
