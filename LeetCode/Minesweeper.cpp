@@ -60,27 +60,29 @@ public:
                 } else {
                     board[top.first][top.second] = 'B';
                     if ((top.first + 1) < board.size()) {
-                        q.push({top.first + 1, top.second});
-                        if ((top.second + 1) < board[0].size()) {
+                        if (!visited[top.first + 1][top.second])
+                            q.push({top.first + 1, top.second});
+                        if ((top.second + 1) < board[0].size() && !visited[top.first + 1][top.second + 1]) {
                             q.push({top.first + 1, top.second + 1});
                         }
-                        if ((top.second - 1) >= 0) {
+                        if ((top.second - 1) >= 0 && !visited[top.first + 1][top.second - 1]) {
                             q.push({top.first + 1, top.second - 1});
                         }        
                     }
                     if ((top.first - 1) >= 0) {
-                        q.push({top.first - 1, top.second});
-                        if ((top.second + 1) < board[0].size()) {
+                        if (!visited[top.first - 1][top.second])
+                            q.push({top.first - 1, top.second});
+                        if ((top.second + 1) < board[0].size() && !visited[top.first - 1][top.second + 1]) {
                             q.push({top.first - 1, top.second + 1});
                         }
-                        if ((top.second - 1) >= 0) {
+                        if ((top.second - 1) >= 0 && !visited[top.first - 1][top.second - 1]) {
                             q.push({top.first - 1, top.second - 1});
                         }
                     }
-                    if ((top.second + 1) < board[0].size()) {
+                    if ((top.second + 1) < board[0].size() && !visited[top.first][top.second + 1]) {
                         q.push({top.first, top.second + 1});
                     }
-                    if ((top.second - 1) >= 0) {
+                    if ((top.second - 1) >= 0 && !visited[top.first][top.second - 1]) {
                         q.push({top.first, top.second - 1});
                     }
                 }
