@@ -10,6 +10,7 @@ public:
         string initial(target.size(), '0');
         if (us.find(initial) == us.cend()) {
             q.push({initial, 0});
+            visited.insert(initial);
         }
         int answer = -1;
         char prev;
