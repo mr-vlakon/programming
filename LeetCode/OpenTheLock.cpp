@@ -8,6 +8,60 @@ public:
         queue<pair<string, int>> q;
         unordered_set<string> visited;
         string initial(target.size(), '0');
+        if (us.find(initial) == us.cend()) {
+            q.push({initial, 0});
+        }
+        int answer = -1;
+        char prev;
+        pair<string, int> top;
+        while (!q.empty()) {
+            top = q.front();
+            q.pop();
+            if (top.first == target) {
+                answer = top.second;
+                break;
+            }
+            for (int i = 0; i != top.first.size(); ++i) {
+                prev = top.first[i];
+                if ((prev - '0') < 9) {
+                    top.first[i] = prev + 1;
+                    if (visited.find(top.first) == visited.cend() && us.find(top.first) == us.cend()) {
+                        q.push({top.first, top.second + 1});
+                        visited.insert(top.first);
+                    } 
+                    top.first[i] = prev; 
+                }
+                if ((prev - '0') > 0) {
+                    top.first[i] = prev - 1;
+                    if (visited.find(top.first) == visited.cend() && us.find(top.first) == us.cend()) {
+                        q.push({top.first, top.second + 1});
+                        visited.insert(top.first);
+                    } 
+                    top.first[i] = prev;
+                } else if ((prev - '0') == 0) {
+                    top.first[i] = '9';
+                    if (visited.find(top.first) == visited.cend() && us.find(top.first) == us.cend()) {
+                        q.push({top.first, top.second + 1});
+                        visited.insert(top.first);
+                    } 
+                    top.first[i] = prev;            
+                }
+            }
+        }
+        return answer;
+    }
+};
+/*
+class Solution {
+public:
+    int openLock(vector<string>& deadends, string target) {
+        unordered_set<string> us;
+        for (const auto &e: deadends) {
+            us.insert(e);
+        }
+        queue<pair<string, int>> q;
+        unordered_set<string> visited;
+        string initial(target.size(), '0');
         q.push({initial, 0});
         int answer = -1;
         char prev;
@@ -53,6 +107,7 @@ public:
         return answer;
     }
 };
+*/
 /*
 class Solution {
 public:
