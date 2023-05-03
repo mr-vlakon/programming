@@ -1,6 +1,34 @@
 class Solution {
 public:
     vector<string> getFolderNames(vector<string>& names) {
+        unordered_set<string> us;
+        vector<string> answer;
+        unordered_map<string, int> cnt;
+        int k = 0;
+        string tmp;
+        for (const auto &e: names) {
+            if (us.find(e) == us.cend()) {
+                answer.push_back(e);
+                us.insert(e);
+            } else {
+                k = cnt[e] + 1;
+                tmp = e + "(" + to_string(k) + ")";
+                while (us.find(tmp) != us.cend()) {
+                    ++k;
+                    tmp = e + "(" + to_string(k) + ")";    
+                }
+                us.insert(tmp);
+                cnt[e] = k;
+                answer.push_back(tmp);
+            }
+        }
+        return answer;
+    }
+};
+/*
+class Solution {
+public:
+    vector<string> getFolderNames(vector<string>& names) {
         vector<string> answer;
         unordered_map<string, int> cnt;
         int k = 0;
@@ -24,6 +52,7 @@ public:
         return answer;
     }
 };
+*/
 
 int main() {
   
