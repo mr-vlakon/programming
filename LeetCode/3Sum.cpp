@@ -7,6 +7,40 @@ public:
         int end = 0;
         int prev = INT_MIN;
         int prev2 = INT_MIN;
+        int sum = 0;
+        for (int i = 0; i != nums.size() - 2; ++i) {
+            if (prev == nums[i]) continue;
+            start = i + 1;
+            end = nums.size() - 1;
+            prev2 = INT_MIN;
+            while (start < end) {
+                sum = nums[start] + nums[i] + nums[end];
+                if (sum == 0 && prev2 != nums[start]) {
+                    result.push_back({nums[i], nums[start], nums[end]});
+                    prev2 = nums[start];
+                    ++start;
+                    --end;
+                } else if (sum < 0) {
+                    ++start;
+                } else {
+                    --end;
+                }
+            }
+            prev = nums[i];
+        }
+        return result;  
+    }
+};
+/*
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> result;
+        int start = 0;
+        int end = 0;
+        int prev = INT_MIN;
+        int prev2 = INT_MIN;
         for (int i = 0; i != nums.size() - 2; ++i) {
             if (prev == nums[i]) continue;
             start = i + 1;
@@ -29,6 +63,7 @@ public:
         return result;  
     }
 };
+*/
 
 int main() {
   
