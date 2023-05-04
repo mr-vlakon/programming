@@ -12,6 +12,22 @@ public:
         return answer;
     }
 };
+/*
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        vector<int> um(1001, 0);
+        for (const auto &e: answers) {
+            um[e]++;
+        }
+        int answer = 0;
+        for (int i = 0; i != um.size(); ++i) {
+            answer += (i + 1)*ceil((static_cast<double>(um[i]) /(i + 1)));
+        }
+        return answer;
+    }
+};
+*/
 
 int main() {
   
