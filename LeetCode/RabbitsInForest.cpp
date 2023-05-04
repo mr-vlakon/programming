@@ -1,6 +1,23 @@
 class Solution {
 public:
     int numRabbits(vector<int>& answers) {
+        vector<int> um(1000, 0);
+        for (const auto &e: answers) {
+            um[e]++;
+        }
+        int answer = 0;
+        for (int i = 0; i != um.size(); ++i) {
+            if (um[i] != 0) {
+                answer += (i + 1)*ceil((static_cast<double>(um[i]) /(i + 1)));
+            }
+        }
+        return answer;
+    }
+};
+/*
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
         unordered_map<int, int> um;
         for (const auto &e: answers) {
             um[e]++;
@@ -16,6 +33,7 @@ public:
         return answer;
     }
 };
+*/
 /*
 class Solution {
 public:
