@@ -1,6 +1,41 @@
 class FrequencyTracker {
 public:
     FrequencyTracker() {
+    }
+    
+    void add(int number) {
+        ++v[um[number] + 1];
+        um[number]++;
+        --v[um[number] - 1]; 
+    }
+    
+    void deleteOne(int number) {
+        it = um.find(number);
+        if (it != um.cend()) {
+            tmp = um[number];
+            --v[um[number]];
+            ++v[um[number] - 1];
+            if (tmp > 1) {
+                um[number] = tmp - 1;
+            } else {
+                um.erase(it);
+            }
+        }
+    }
+    
+    bool hasFrequency(int frequency) {
+        return v[frequency] > 0;
+    }
+private:
+    int tmp = 0;
+    unordered_map<int, int> v;
+    unordered_map<int, int>::iterator it;
+    unordered_map<int, int> um;
+};
+/*
+class FrequencyTracker {
+public:
+    FrequencyTracker() {
         v.resize(100003, 0);
     }
     
@@ -41,7 +76,7 @@ private:
  * obj->deleteOne(number);
  * bool param_3 = obj->hasFrequency(frequency);
  */
-
+*/
 int main() {
   
   
