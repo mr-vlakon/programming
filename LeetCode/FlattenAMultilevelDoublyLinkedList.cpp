@@ -1,14 +1,40 @@
-/*
-// Definition for a Node.
-class Node {
+class Solution {
 public:
-    int val;
-    Node* prev;
-    Node* next;
-    Node* child;
+    Node* flatten(Node* head) {
+        stack<Node*> st;
+        if (head != nullptr) {
+            st.push(head);
+        }
+        Node *top = 0;
+        vector<Node*> v;
+        while (!st.empty()) {
+            top = st.top();
+            st.pop();
+            v.push_back(top);
+            if (top->next) st.push(top->next);
+            if (top->child) st.push(top->child);
+        }
+        Node *res = head;
+        for (int i = 0; i != v.size(); ++i) {
+            head = v[i];
+            if ((i + 1) < v.size()) {
+                head->next = v[i + 1];
+            } else {
+                head->next = nullptr;
+            }
+            head->child = nullptr;
+            if ((i - 1) >= 0) {
+                head->prev = v[i - 1];
+            } else {
+                head->prev = nullptr;
+            }
+            head = head->next;    
+        }
+        return res;       
+    }
 };
-*/
 
+/*
 class Solution {
 public:
     Node* flatten(Node* head) {
@@ -36,6 +62,7 @@ public:
         return res;       
     }
 };
+*/
 
 int main() {
   
