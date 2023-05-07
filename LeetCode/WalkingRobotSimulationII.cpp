@@ -5,6 +5,76 @@ public:
     }
     
     void step(int num) {
+        num %= size;
+        if (num == 0) {
+            if (direction == 0 && posC == 0 && posR == 0) direction = 3;
+            else if (direction == 1 && posC == (w - 1) && posR == 0) direction = 0;
+            else if (direction == 2 && posC == (w - 1) && posR == (h - 1)) direction = 1;
+            else if (direction == 3 && posC == 0 && posR == (h - 1)) direction = 2;
+        } else {
+            while (num) {
+                if (direction == 0 && posC < (w - 1)) {
+                    tmp = min(w - 1, posC + num);
+                    num -= abs(tmp - posC);
+                    posC = tmp;
+                } else if (direction == 0) {
+                    direction = 1;
+                } else if (direction == 1 && posR < (h - 1)) {
+                    tmp = min(h - 1, posR + num);
+                    num -= abs(tmp - posR);
+                    posR = tmp;
+                } else if (direction == 1) {
+                    direction = 2;
+                } else if (direction == 2 && posC > 0) {
+                    tmp = max(0, posC - num);
+                    num -= abs(tmp - posC);
+                    posC = tmp;
+                } else if (direction == 2) {
+                    direction = 3;
+                } else if (direction == 3 && posR > 0) {
+                    tmp = max(0, posR - num);
+                    num -= abs(tmp - posR);
+                    posR = tmp;
+                } else if (direction == 3) {
+                    direction = 0;
+                }
+            }
+        }
+    }
+    
+    vector<int> getPos() {
+        return {posC, posR};
+    }
+    
+    string getDir() {
+        if (direction == 0) {
+            return "East";
+        } else if (direction == 1) {
+            return "North";
+        } else if (direction == 2) {
+            return "West";
+        } else {
+            return "South";
+        }
+    }
+private:
+    int tmp = 0;
+    int posR = 0;
+    int posC = 0;
+    int direction = 0;
+    int h = 0;
+    int w = 0;
+    int size = 0;
+};
+
+/*
+class Robot {
+public:
+    Robot(int width, int height) : h(height), w(width) {
+        size = 2*(width - 1) + 2*(height - 1);
+    }
+    
+    void step(int num) {
         n = (num) % (size);
         if (n == 0) {
             if (direction == 0 && posC == 0 && posR == 0) direction = 3;
@@ -62,6 +132,7 @@ private:
     int size = 0;
     int n = 0;
 };
+*/
 
 /**
  * Your Robot object will be instantiated and called as such:
