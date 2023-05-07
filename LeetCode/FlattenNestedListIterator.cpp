@@ -23,6 +23,35 @@ public:
             if (e.isInteger()) {
                 v.push_back(e.getInteger());
             } else {
+                expand(e.getList());
+            }
+        }
+    }
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        expand(nestedList);
+    }
+    
+    int next() {
+        ++pos;
+        return v[pos - 1];     
+    }
+    
+    bool hasNext() {
+        return pos < v.size();
+    }
+private:
+    vector<int> v;
+    int pos = 0;
+};
+
+/*
+class NestedIterator {
+public:
+    void expand(const vector<NestedInteger> &ns) {
+        for (const auto &e: ns) {
+            if (e.isInteger()) {
+                v.push_back(e.getInteger());
+            } else {
                 for (const auto &p: e.getList()) {
                     if (p.isInteger()) {
                         v.push_back(p.getInteger());
@@ -49,7 +78,7 @@ private:
     vector<int> v;
     int pos = 0;
 };
-
+*/
 /**
  * Your NestedIterator object will be instantiated and called as such:
  * NestedIterator i(nestedList);
