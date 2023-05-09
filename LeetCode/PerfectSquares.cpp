@@ -6,6 +6,7 @@ public:
         q.push({n, 0});
         pair<int, int> top;
         int i = 1;
+        int x = 1;
         while (!q.empty()) {
             i = 1;
             top = q.front();
@@ -13,18 +14,20 @@ public:
             if (memo[top.first] < top.second) {
                 continue;
             }
-            //memo[top.first] = top.second;
-            while (i*i <= n) {
-                if ((top.first - i*i) >= 0) {
-                    if (!memo[top.first - i*i]) {
-                        memo[top.first - i*i] = top.second + 1;
-                        q.push({top.first - i*i, top.second + 1});
+            x = i*i;
+            while (x <= n) {
+                if ((top.first - x) >= 0) {
+                    if (!memo[top.first - x]) {
+                        memo[top.first - x] = top.second + 1;
+                        q.push({top.first - x, top.second + 1});
                     }
                 } else {
                     break;
                 }
                 ++i;
+                x = i*i;
             }
+            if (top.first == 0) break;
         }
         return memo[0];
     }
