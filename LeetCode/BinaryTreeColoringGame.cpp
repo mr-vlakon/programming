@@ -15,7 +15,6 @@ public:
         if (root == nullptr) return;
         if (root->val == X) {
             status = true;
-            root_ = root;
         }
         if (status) ++counter;
         if (st) ++counter1;
@@ -32,17 +31,16 @@ public:
     bool btreeGameWinningMove(TreeNode* root, int n, int x) {
         X = x;
         traverse(root, false, false);
-        int allSums = cnt;
-        int tmpCnt3 = allSums - counter;
+        int tmpCnt3 = cnt - counter;
         int tmpCnt1 = counter1;
-        int tmpCnt2 = secondCnt1 - tmpCnt1 - 1;
-        if (tmpCnt1 > (allSums - tmpCnt1)) {
+        int tmpCnt2 = counter - tmpCnt1 - 1;
+        if (tmpCnt1 > (cnt - tmpCnt1)) {
             return true;
         }
-        if (tmpCnt2 > (allSums - tmpCnt2)) {
+        if (tmpCnt2 > (cnt - tmpCnt2)) {
             return true;
         }
-        if (tmpCnt3 > (allSums - tmpCnt3) ) {
+        if (tmpCnt3 > (cnt - tmpCnt3) ) {
             return true;
         }
         return false;
@@ -52,8 +50,6 @@ private:
     int counter1 = 0;
     int X = 0;
     int cnt = 0;
-    int secondCnt1 = 0;
-    TreeNode *root_ = 0;
 };
 /*
 class Solution {
