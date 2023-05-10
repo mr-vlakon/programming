@@ -2,16 +2,12 @@ class Solution {
 public:
     vector<double> sampleStats(vector<int>& count) {
         vector<double> answer(5, 0);
-        
         int minV = INT_MAX;
-        int maxV = 0;
-        
+        int maxV = 0; 
         long long sum = 0;
-        
         int cnt = 0;
         int maxCnt = 0;
         double mode = 0;
-        
         long long i = 0;
         for (const auto &e: count) {
             sum += e*i;
@@ -37,13 +33,10 @@ public:
         } else {
             posMed = cnt / 2;
         }
-        
         int med = -1;
-        
         int firstMed = -1;
         int secondMed = -1;
         int counter = 0;
-        
         i = 0;
         for (const auto &e: count) {
             if ((cnt % 2) == 0 && e != 0) {
