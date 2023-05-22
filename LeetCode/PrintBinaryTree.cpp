@@ -24,6 +24,42 @@ public:
     }
 
     vector<vector<string>> printTree(TreeNode* root) {
+        v.resize(height(root));
+        int start = 1;
+        int tmp = 2;
+        for (int i = 1; i < v.size(); ++i) {
+            start += tmp;
+            tmp *= 2;
+        }
+        for (auto &e: v) {
+            e.resize(start);
+        }
+        tmp = start;
+        start /= 2;
+        start /= 2;
+        start += 1;
+        traverse(root, start, 0, tmp / 2);
+        return v;
+    }
+private:
+    vector<vector<string>> v;
+};
+/*
+class Solution {
+public:
+    int height(TreeNode * &root) {
+        if (root == nullptr) return 0;
+        return max(height(root->left), height(root->right)) + 1;
+    }
+
+    void traverse(TreeNode * &root, int height_, int row, int col) {
+        if (root == nullptr) return;
+        v[row][col] = to_string(root->val);
+        traverse(root->left, height_ / 2, row + 1, col - height_);
+        traverse(root->right, height_ / 2, row + 1, col + height_);
+    }
+
+    vector<vector<string>> printTree(TreeNode* root) {
         int height_ = height(root);
         v.resize(height_);
         int start = 1;
@@ -45,6 +81,7 @@ public:
 private:
     vector<vector<string>> v;
 };
+*/
 
 int main() {
   
