@@ -1,6 +1,21 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
+        int prevF = 0;
+        int prevS = nums[0];
+        int answer = prevS;
+        for (int i = 1; i != nums.size(); ++i) {
+            answer = max(prevF + nums[i], answer);
+            prevF = prevS;
+            prevS = answer;
+        }
+        return answer;
+    }
+};
+/*
+class Solution {
+public:
+    int rob(vector<int>& nums) {
         if (nums.size() == 1) return nums[0];
         int prevS = max(nums[0], nums[1]);
         int prevF = nums[0];
@@ -13,6 +28,7 @@ public:
         return answer;
     }
 };
+*/
 /*
 class Solution {
 public:
