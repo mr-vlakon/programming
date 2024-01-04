@@ -1,13 +1,11 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        for (const auto &e : nums)  {
-                if (count(nums.cbegin(), nums.cend(), e) == 1) {
-                    return e;
-                }    
+        int answer = nums[0];
+        for (int i = 1; i != nums.size(); ++i) {
+            answer ^= nums[i];
         }
-        return 0;
-    
+        return answer;
     }
 };
 
